@@ -15,12 +15,12 @@ export default async function dispatchCommand(arg0 : any, command : Command) {
     if (isNumber(arg0)) {
         options.port = parseInt(arg0);
     }
-    
+
     if (typeof command.args[1] === 'string' && command.args[1].toLowerCase() === 'as' && typeof command.args[2] === 'string') {
         options.domain = command.args[2];
     } else if (typeof command.args[1] === 'string' && command.args[1] === "AS" && typeof command.args[2] !== 'string') {
         console.info("Please enter the domain you want to expose e.g. foo.tunnelmole.net");
-    } 
+    }
 
     // Check for a route handler for any options passed
     const routeOption = resolveRoute(command);
@@ -31,6 +31,13 @@ export default async function dispatchCommand(arg0 : any, command : Command) {
         return Promise.resolve();
     }
 
+    // check if an endpoint argument was passed and use it
+    if(command.endpoint) {
+        options.endpoint = command.endpoint;
+    }
+    if(command.httpEndpoint) {
+        options.httpEndpoint = command.httpEndpoint;
+    }
     if (options.port) {
         // We have enough to Launch Tunnelmole
         tunnelmole(options);

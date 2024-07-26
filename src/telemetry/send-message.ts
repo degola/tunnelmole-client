@@ -11,16 +11,19 @@ const sendMessage = async function(message: Message) {
     if (isTelemetryDisabled()) {
         return;
     }
-
     const telemetryEndpoint = `${config.hostip.httpEndpoint}/tunnelmole-log-telemetry`
 
-    await fetch(telemetryEndpoint, {
-        method: "POST",
-        headers: {
-            "Content-Type":"application/json",
-        },
-        body: JSON.stringify(message)
-    });
+    try {
+        await fetch(telemetryEndpoint, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(message)
+        });
+    } catch(e) {
+        console.error('unable to send telemetry, consider TUNNELMOLE_TELEMETRY=0 to disable telemetry: ', e.message);
+    }
 
     return;
 }

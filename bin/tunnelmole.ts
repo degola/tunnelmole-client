@@ -49,6 +49,8 @@ More detailed instructions, cookbooks and more are available at https://tunnelmo
         .arguments('[arg0]')
         .option('--set-api-key <apiKey>', 'Set your API key. After purchasing a subscription you can copy and paste the command shown on the page')
         .option('--unreserve-subdomain <subdomain>', 'Unreserve a subdomain, for example if the number of subdomains you have reserved exceeds your limit')
+        .option('--endpoint <websocket endpoint>', 'Specify the websocket endpoint for self-hosted tunnel mole, e.g. ws://localhost:8000')
+        .option('--httpEndpoint <http endpoint>', 'Specify the http endpoint for self-hosted tunnel mole, e.g. http://localhost:8080')
         .description('tmole - Share your local server with a Public URL')
         .action(dispatchCommand);
 

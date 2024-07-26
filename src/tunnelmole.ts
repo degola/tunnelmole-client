@@ -24,8 +24,11 @@ export default async function tunnelmole(options : Options): Promise<string>
     if (options.setApiKey) {
        return;
     }
+    let endpoint = config.hostip.endpoint;
+    if(options.endpoint)
+        endpoint = options.endpoint;
 
-    const websocket = new HostipWebSocket(config.hostip.endpoint);
+    const websocket = new HostipWebSocket(endpoint);
     const websocketIsReady = websocket.readyState === 1;
 
     const sendInitialiseMessage = async () => {
